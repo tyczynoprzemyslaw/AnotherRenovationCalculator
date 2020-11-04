@@ -5,19 +5,19 @@ import java.sql.*;
 import logic.Room;
 
 public class Driver {
-	public static void main(String[] args) {
+	Connection conn =  null;
+	Statement myStmt = null;	
+	
+		//String query = insertRoomToDatabase();
 		
-		String query = insertRoomToDatabase();
+	public void getConnectionToInsert(String insertQuery) {
+		
 	try {
-		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/calculator","root","");
-		Statement myStmt = conn.createStatement();
-		
-	   myStmt.executeUpdate(insertRoomToDatabase());
+		conn = DriverManager.getConnection("jdbc:mysql://localhost/calculator","root","");
+		myStmt = conn.createStatement();		
+	    myStmt.executeUpdate(insertQuery);   
 	   
 	   
-	   //while (myRs.next()) {
-		 //  System.out.println(myRs.getString("room_name"));
-	  // }
 
 	} catch (SQLException ex) {
 	 
@@ -31,9 +31,5 @@ public class Driver {
 	public void makeConnectionwithDatabase() {
 		
 	}
-	public static  String insertRoomToDatabase() {
-		
-		return "INSERT INTO `rooms` (`room_name`, `wallA`, `wallB`, `high`, `area_Walls`, `area_Ceiling`, `total_Area`, `circumference`) VALUES ('kolejnypokoj', '6', '4.4', '2.5', NULL, NULL, NULL, NULL)";
-		
-	}
+	
 }
