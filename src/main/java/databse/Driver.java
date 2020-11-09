@@ -51,7 +51,7 @@ public class Driver {
 	public Connection connection() {
 		try {
 			conn = DriverManager.getConnection(URL, user, password);
-			System.out.println("Po³¹czono");
+			System.out.println("Connected with database");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
