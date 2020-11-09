@@ -4,7 +4,7 @@ import logic.Room;
 
 public class QueryConstructor {
 	
-	public  String insertRoomToDatabase(Room roomDataToDatabse) {
+	public  String insertRoom(Room roomDataToDatabse) {
 			
 			return "INSERT INTO `rooms` (`room_name`, `wallA`, `wallB`, `high`, `area_Walls`, `area_Ceiling`, `total_Area`, `circumference`)" +
 			"VALUES ('"+ roomDataToDatabse.getName() + "',"

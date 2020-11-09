@@ -1,13 +1,7 @@
 package logic;
 
-public class Room {
-	
-	
-	
-	
-
-
-
+public class Room {	
+		
 	public Room(String name, double wallA, double wallB, double high) {
 		super();
 		
@@ -71,7 +65,7 @@ public class Room {
 	}
 	
 	public double totalArea() {			
-		return 2*wallA*high+2*wallB+wallA*wallB;
+		return 2* wallA*high + 2*wallB*high + wallA*wallB;
 	}
 
 	public double circumferenceOfRoom() {		

@@ -3,6 +3,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
+import databse.*;
 
 
 public  class Navigate {
@@ -10,7 +11,8 @@ public  class Navigate {
 	   int choise=0;
 	   Map<String, Room> map = new LinkedHashMap<>();
 	   Room newRoom = new Room();
-	
+	   Driver driver = new Driver();
+	   QueryConstructor query = new QueryConstructor();	
 	public void Start() {
 		
 			while (choise != 5 ) {
@@ -26,10 +28,12 @@ public  class Navigate {
 				
 				if (choise==1) {
 					newRoom=NewRoom();
-					PressKey();
-					map.put(newRoom.getName(),newRoom);
+					PressKey();					
+					driver.getConnectionToInsertOrUpdate(query.insertRoom(newRoom));
+					
 				}
 				else if (choise==2) {
+					map=driver.loadRoomsFromDatabaseToMap();
 					ShowAllRooms();
 					PressKey();
 				}
@@ -38,14 +42,12 @@ public  class Navigate {
 			}
 	}
 	
+	
 	public void ShowAllRooms() {
 		
 		Set<String> keys = map.keySet();
         for(String k:keys){
-            System.out.println(map.get(k).getName());
-            System.out.println("Length of wall A" + map.get(k).getWallA());
-            System.out.println("Length of wall A" + map.get(k).getWallB());
-            System.out.println("High of Room"+ map.get(k).getHigh());
+            showRoom(k);
             
         }
 	}
@@ -75,15 +77,21 @@ public  class Navigate {
 		double heigh =scan.nextDouble();	
 			
 		Room exampleRoom= new Room(name,wallA,wallB,heigh);
-		
+		map.put(exampleRoom.getName(),exampleRoom);
 		System.out.println("Correctly create new Room");
-		System.out.println("Name " + name);
-		System.out.println("wallA " + wallA);
-		System.out.println("wallB " + wallB);
-		System.out.println("heigh " + heigh);
+		showRoom(exampleRoom.getName());
 	
 		
 		return exampleRoom;
+		
+	}
+	
+	public void showRoom(String k) {
+		  System.out.println();
+		  System.out.println(map.get(k).getName());
+          System.out.println("Length of wall A: " + map.get(k).getWallA());
+          System.out.println("Length of wall B: " + map.get(k).getWallB());
+          System.out.println("High of Room: "+ map.get(k).getHigh());
 		
 	}
 		
