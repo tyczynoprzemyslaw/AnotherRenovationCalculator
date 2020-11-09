@@ -37,6 +37,10 @@ public  class Navigate {
 					ShowAllRooms();
 					PressKey();
 				}
+				else if (choise==4) {
+					driver.getConnectionToInsertOrUpdate("DELETE FROM rooms");
+					
+				}
 			
 		
 			}
