@@ -13,6 +13,9 @@ public  class Navigate {
 	   Room newRoom = new Room();
 	   Driver driver = new Driver();
 	   QueryConstructor query = new QueryConstructor();	
+	/**
+	 * 
+	 */
 	public void Start() {
 		
 			while (choise != 5 ) {
@@ -23,6 +26,15 @@ public  class Navigate {
 				System.out.println("3- Create raport");
 				System.out.println("4- Delete all data");
 				System.out.println("5- EXIT");
+				
+				
+			
+				while(!scan.hasNextInt()){
+		            scan.next();
+		            System.out.println("Podaj liczbe!");
+		        	
+		        }
+				
 				
 				choise = scan.nextInt();
 				
@@ -42,7 +54,7 @@ public  class Navigate {
 					
 				}
 			
-		
+			
 			}
 	}
 	
@@ -63,6 +75,15 @@ public  class Navigate {
 		
 	}
 	
+	
+	public void checkIfScannerIsDouble() {
+		while(!scan.hasNextDouble()){
+            scan.next();
+            System.out.println("Podaj liczbe!");
+        	
+        }
+		
+	}
 	public Room NewRoom() {
 		
 			
@@ -72,12 +93,15 @@ public  class Navigate {
 		name =scan.nextLine();
 		
 		System.out.println("Put length of wall A: ");
+		checkIfScannerIsDouble();
 		double wallA =scan.nextDouble();
 		
 		System.out.println("Put length of wall B: ");
+		checkIfScannerIsDouble();
 		double wallB =scan.nextDouble();
 		
 		System.out.println("Put heigh of room: ");
+		checkIfScannerIsDouble();
 		double heigh =scan.nextDouble();	
 			
 		Room exampleRoom= new Room(name,wallA,wallB,heigh);
