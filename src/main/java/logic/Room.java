@@ -18,9 +18,9 @@ public class Room {
 
 
 	private String name;
-	double wallA;
-	double wallB;
-	double high;
+	private double wallA;
+	private double wallB;
+	private double high;
 
 	
 	public String getName() {

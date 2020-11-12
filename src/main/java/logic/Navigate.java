@@ -1,64 +1,90 @@
 package logic;
+import databse.Driver;
+import databse.QueryConstructor;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
-import databse.*;
+
+import static databse.Mapper.loadRoomsFromDatabaseToMap;
 
 
 public  class Navigate {
-	   Scanner scan = new Scanner(System.in);
+
+	private static final String CHOISE_COMUNICAT= "What You want to do? ";
+	private static final String HELLO_MESSAGE= "HELLO :) It's simply renovation calculator. All data are saved in database";
+	private static final String MENU_CHOISE_1 = "1- Create new room";
+	private static final String MENU_CHOISE_SHOW_ROOMS = "2- Show all rooms";
+	private static final String MENU_CHOISE_CREATE_RAPORT = "3- Create raport";
+	private static final String MENU_CHOISE_DELETE_ALL_ROOMS = "4- Delete all data";
+	private static final String MENU_CHOISE_EXIT = "5- EXIT";
+
+	private static final String WALLA_LENGTH = "Length of wall A: ";
+	private static final String WALL_LENGTH = "Length of wall B: ";
+	private static final String HIGH = "High of Room: ";
+
+	Scanner scan = new Scanner(System.in);
 	   int choise=0;
 	   Map<String, Room> map = new LinkedHashMap<>();
 	   Room newRoom = new Room();
 	   Driver driver = new Driver();
 	   QueryConstructor query = new QueryConstructor();	
-	/**
-	 * 
-	 */
+
 	public void Start() {
 		
 			while (choise != 5 ) {
-				System.out.println("HELLO :) It's simply renovation calculator. All data are saved in database");
-				System.out.println("What You want to do? ");
-				System.out.println("1- Create new room");
-				System.out.println("2- Show all rooms");
-				System.out.println("3- Create raport");
-				System.out.println("4- Delete all data");
-				System.out.println("5- EXIT");
-				
-				
-			
-				while(!scan.hasNextInt()){
-		            scan.next();
-		            System.out.println("Podaj liczbe!");
-		        	
-		        }
-				
-				
-				choise = scan.nextInt();
+
+				displayMenu();
+				choise = getNumber();
 				
 				if (choise==1) {
-					newRoom=NewRoom();
-					PressKey();					
-					driver.getConnectionToInsertOrUpdate(query.insertRoom(newRoom));
-					
+					createNewRoom();
 				}
 				else if (choise==2) {
-					map=driver.loadRoomsFromDatabaseToMap();
-					ShowAllRooms();
-					PressKey();
+					showRoomsFromDatabase();
 				}
 				else if (choise==4) {
-					driver.getConnectionToInsertOrUpdate("DELETE FROM rooms");
-					
+					deleteAllRooms();
 				}
-			
-			
 			}
 	}
-	
-	
+
+	private int getNumber() {
+		while(!scan.hasNextInt()){
+			scan.next();
+			System.out.println("Type number!: ");
+		}
+		return scan.nextInt();
+	}
+
+	private void deleteAllRooms() {
+		driver.getConnectionToInsertOrUpdate("DELETE FROM rooms");
+	}
+
+	private void showRoomsFromDatabase() {
+		map=loadRoomsFromDatabaseToMap();
+		ShowAllRooms();
+		PressKey();
+	}
+
+	private void createNewRoom() {
+		newRoom=NewRoom();
+		PressKey();
+		driver.getConnectionToInsertOrUpdate(query.insertRoom(newRoom));
+	}
+
+	private void displayMenu() {
+		System.out.println(HELLO_MESSAGE);
+		System.out.println(CHOISE_COMUNICAT);
+		System.out.println(MENU_CHOISE_1);
+		System.out.println(MENU_CHOISE_SHOW_ROOMS);
+		System.out.println(MENU_CHOISE_CREATE_RAPORT);
+		System.out.println(MENU_CHOISE_DELETE_ALL_ROOMS);
+		System.out.println(MENU_CHOISE_EXIT);
+	}
+
+
 	public void ShowAllRooms() {
 		
 		Set<String> keys = map.keySet();
@@ -84,10 +110,9 @@ public  class Navigate {
         }
 		
 	}
+
 	public Room NewRoom() {
-		
-			
-		
+
 		System.out.println("Put name: ");
 		String name =scan.nextLine();
 		name =scan.nextLine();
@@ -117,12 +142,9 @@ public  class Navigate {
 	public void showRoom(String k) {
 		  System.out.println();
 		  System.out.println(map.get(k).getName());
-          System.out.println("Length of wall A: " + map.get(k).getWallA());
-          System.out.println("Length of wall B: " + map.get(k).getWallB());
-          System.out.println("High of Room: "+ map.get(k).getHigh());
-		
+          System.out.println(WALLA_LENGTH + map.get(k).getWallA());
+          System.out.println(WALL_LENGTH + map.get(k).getWallB());
+          System.out.println(HIGH + map.get(k).getHigh());
 	}
-		
-	
 
 }
