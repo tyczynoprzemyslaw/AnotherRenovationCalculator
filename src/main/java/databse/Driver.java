@@ -8,9 +8,9 @@ public class Driver {
 	ResultSet myRs = null;
 	
 	
-	private static String URL = "jdbc:mysql://localhost/calculator";
-	private static String user = "root";
-	private static String password = "";
+	private static final String URL = "jdbc:mysql://localhost/calculator";
+	private static final String user = "root";
+	private static final String password = "";
 
 		//String query = insertRoomToDatabase();
 		
@@ -45,7 +45,7 @@ public class Driver {
 
 	}
 	
-	public Connection connection() {
+	private Connection connection() {
 		try {
 			conn = DriverManager.getConnection(URL, user, password);
 			System.out.println("Connected with database");

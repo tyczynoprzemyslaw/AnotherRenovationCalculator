@@ -17,7 +17,7 @@ public class Mapper {
             Driver driver = new Driver();
             ResultSet result = driver.executeSelect("SELECT room_name,wallA,wallB,high FROM rooms");
             while (result.next()) {
-                Room mainRoom = getRoom(result);
+                Room mainRoom = getRoomFromDatabase(result);
                 map.put(mainRoom.getName(),mainRoom);
 
             }
@@ -30,12 +30,12 @@ public class Mapper {
     }
 
 
-    private static Room getRoom(ResultSet result) throws SQLException {
+    private static Room getRoomFromDatabase(ResultSet result) throws SQLException {
         String name = result.getString("room_name");
         double wallA = result.getDouble("wallA");
         double wallB = result.getDouble("wallB");
         double high = result.getDouble("high");
-        Room mainRoom= new Room(name, wallA, wallB, high);
+        Room mainRoom = new Room(name, wallA, wallB, high);
         return mainRoom;
     }
 
