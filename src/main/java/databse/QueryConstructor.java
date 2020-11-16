@@ -3,6 +3,7 @@ package databse;
 import logic.Room;
 
 public class QueryConstructor {
+	public final static String GET_NAME_OF_ALL_TABLES = "SELECT table_name FROM information_schema.tables WHERE table_schema='calculator'";
 	
 	public  static String insertRoom(Room roomDataToDatabse) {
 			
