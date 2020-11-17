@@ -11,7 +11,7 @@ public class House {
     int customer_id = 1;
     List<Room> listOfRooms = new LinkedList<>();
 
-    public House(String name, String city, String adress, int customer_id, List<Room> listOfRooms) {
+    public House(Integer id,String name, String city, String adress, int customer_id, List<Room> listOfRooms) {
         this.name = name;
         this.id = id;
         this.city = city;

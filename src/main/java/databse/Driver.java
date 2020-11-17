@@ -43,6 +43,7 @@ public class Driver {
 
 		} catch (SQLException ex) {
 		  throw new RuntimeException(ex.getMessage());
+
 		}
 
 	}
