@@ -1,28 +1,38 @@
 package logic;
 
-public class Room {	
-		
-	public Room(String name, double wallA, double wallB, double high) {
-		super();
-		
-		this.name= name;
-		this.wallA = wallA;
-		this.wallB = wallB;
-		this.high = high;
-	}
-	
-	
-	public Room() {
-		// TODO Auto-generated constructor stub
-	}
-
+public class Room {
 
 	private String name;
 	private double wallA;
 	private double wallB;
 	private double high;
+	private Integer id;
+	private Integer houseId;
 
-	
+
+
+	public Room(String name, double wallA, double wallB, double high, Integer id, Integer houseId) {
+
+		this.id = id;
+		this.name= name;
+		this.wallA = wallA;
+		this.wallB = wallB;
+		this.high = high;
+		this.houseId = houseId;
+	}
+
+	public Room() {
+
+	}
+
+	public Room(String name, double wallA, double wallB, double high) {
+		this.name= name;
+		this.wallA = wallA;
+		this.wallB = wallB;
+		this.high = high;
+	}
+
+
 	public String getName() {
 		return name;
 	}
@@ -53,6 +63,14 @@ public class Room {
 	
 	public void setHigh(double high) {
 		this.high = high;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public Integer getHouseId() {
+		return houseId;
 	}
 	
 	

@@ -17,9 +17,10 @@ public class Navigate {
     private static final String HELLO_MESSAGE = "HELLO :) It's simply renovation calculator. All data are saved in database";
     private static final String MENU_CHOICE_CREATE_NEW_ROOM = "1- Create new room";
     private static final String MENU_CHOISE_SHOW_ROOMS = "2- Show all rooms";
-    private static final String MENU_CHOISE_CREATE_RAPORT = "3- Create raport";
+    private static final String MENU_CHOISE_HOUSES = "Show all houses";
     private static final String MENU_CHOISE_DELETE_ALL_ROOMS = "4- Delete all data";
     private static final String MENU_CHOISE_EXIT = "5- EXIT";
+    private static final String MENU_CHOISE_CREATE_RAPORT = "Create raport";
 
     private static final String WALLA_LENGTH = "Length of wall A: ";
     private static final String WALL_LENGTH = "Length of wall B: ";
@@ -27,19 +28,20 @@ public class Navigate {
 
     private static final String TYPE_NUMBER = "Type number!: ";
     private final static String MESSAGE_CREATED_ROOM = "Correctly create new Room";
-    private final static String QUERY_DELETE_ALL_ROOMS = "DELETE FROM rooms";
+
 
     Scanner scan = new Scanner(System.in);
     int choise = 0;
-    Map<String, Room> map = new LinkedHashMap<>();
+    Map<Integer, Room> map = new LinkedHashMap<>();
     Room newRoom = new Room();
     Driver driver = new Driver();
+    Map<Integer, House> mapMain = new LinkedHashMap<>();
 
     public void Start() {
 
         while (choise != 5) {
 
-            displayMenu();
+            displayMainMenu();
             choise = getNumber();
 
             if (choise == 1) {
@@ -47,7 +49,7 @@ public class Navigate {
             } else if (choise == 2) {
                 showRoomsFromDatabase();
             } else if (choise == 4) {
-                deleteAllRooms();
+                driver.deleteAllRooms();
             }
         }
     }
@@ -60,9 +62,7 @@ public class Navigate {
         return scan.nextInt();
     }
 
-    private void deleteAllRooms() {
-        driver.getConnectionToInsertOrUpdate(QUERY_DELETE_ALL_ROOMS);
-    }
+
 
     private void showRoomsFromDatabase() {
         map = loadRoomsFromDatabaseToMap();
@@ -76,26 +76,27 @@ public class Navigate {
         driver.getConnectionToInsertOrUpdate(insertRoom(newRoom));
     }
 
-    private void displayMenu() {
+    private void displayMainMenu() {
         System.out.println(HELLO_MESSAGE);
         System.out.println(CHOICE_COMUNICAT);
         System.out.println(MENU_CHOICE_CREATE_NEW_ROOM);
         System.out.println(MENU_CHOISE_SHOW_ROOMS);
-        System.out.println(MENU_CHOISE_CREATE_RAPORT);
+        System.out.println(MENU_CHOISE_HOUSES);
         System.out.println(MENU_CHOISE_DELETE_ALL_ROOMS);
         System.out.println(MENU_CHOISE_EXIT);
     }
 
-
-    public void ShowAllRooms() {
-
-        Set<String> keys = map.keySet();
-        for (String k : keys) {
-            showRoom(k);
-
-        }
+    /*private void displayHousesMenu() {
+        System.out.println(HOUSES_MENU_HELLO_MESSAGE);
+        private static final String HOUSES_MENU_HELLO_MESSAGE = "Hello, What You wanna do?";
+        System.out.println(CHOICE_COMUNICAT);
+        System.out.println(MENU_CHOICE_CREATE_NEW_ROOM);
+        System.out.println(MENU_CHOISE_SHOW_ROOMS);
+        System.out.println(MENU_CHOISE_HOUSES);
+        System.out.println(MENU_CHOISE_DELETE_ALL_ROOMS);
+        System.out.println(MENU_CHOISE_EXIT);
     }
-
+*/
     public void PressKey() {
 
         System.out.println("Press enter to continue...");
@@ -116,10 +117,10 @@ public class Navigate {
     public Room NewRoom() {
 
         Room exampleRoom = createRoomFromInputNumbers();
-        map.put(exampleRoom.getName(), exampleRoom);
+        map.put(exampleRoom.getId(), exampleRoom);
 
         System.out.println(MESSAGE_CREATED_ROOM);
-        showRoom(exampleRoom.getName());
+        showRoom(exampleRoom.getId());
         return exampleRoom;
     }
 
@@ -139,12 +140,26 @@ public class Navigate {
         return new Room(name, wallA, wallB, heigh);
     }
 
-    public void showRoom(String k) {
+    public void ShowAllRooms() {
+
+        //keys = null;
+        Set<Integer> keys = map.keySet();
+        for (Integer k : keys) {
+            System.out.println("Control" + k);
+            showRoom(k);
+
+        }
+    }
+
+    public void showRoom(Integer k) {
+
         System.out.println();
         System.out.println(map.get(k).getName());
         System.out.println(WALLA_LENGTH + map.get(k).getWallA());
         System.out.println(WALL_LENGTH + map.get(k).getWallB());
         System.out.println(HIGH + map.get(k).getHigh());
     }
+
+
 
 }

@@ -2,6 +2,8 @@ package databse;
 
 import java.sql.*;
 
+import static databse.QueryConstructor.QUERY_DELETE_ALL_ROOMS;
+
 public class Driver {
 	Connection conn =  null;
 	Statement myStmt = null;	
@@ -55,7 +57,10 @@ public class Driver {
 		}
 		return conn;
 	}
-	
+
+	public void deleteAllRooms() {
+		getConnectionToInsertOrUpdate(QUERY_DELETE_ALL_ROOMS);
+	}
 
 	
 }

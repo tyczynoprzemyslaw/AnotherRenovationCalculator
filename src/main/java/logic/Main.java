@@ -1,19 +1,11 @@
 package logic;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.LinkedHashMap;
-
-
-
-import databse.*;
-
 public class Main {
 
 	public static void main(String[] args) {
-		Navigate navigate = new Navigate();			
-		QueryConstructor query = new QueryConstructor();
-		Driver driver = new Driver();
+		Navigate navigate = new Navigate();
+		//QueryConstructor query = new QueryConstructor();
+		//Driver driver = new Driver();
 		
 		//ResultSet result = driver.executeSelect("SELECT * FROM rooms");
 		
