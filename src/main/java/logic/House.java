@@ -19,6 +19,21 @@ public class House {
         this.customer_id = customer_id;
         this.listOfRooms = listOfRooms;
     }
+    public House(String name, String city, String adress, int customer_id) {
+        this.name = name;
+        this.city = city;
+        this.adress = adress;
+        this.customer_id = customer_id;
+
+    }
+
+
+
+    public House() {
+
+    }
+
+
 
     public int getId() {
         return id;

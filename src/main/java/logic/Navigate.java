@@ -15,12 +15,17 @@ public class Navigate {
 
     private static final String CHOICE_COMUNICAT = "What You want to do? ";
     private static final String HELLO_MESSAGE = "HELLO :) It's simply renovation calculator. All data are saved in database";
-    private static final String MENU_CHOICE_CREATE_NEW_ROOM = "1- Create new room";
-    private static final String MENU_CHOISE_SHOW_ROOMS = "2- Show all rooms";
-    private static final String MENU_CHOISE_HOUSES = "Show all houses";
-    private static final String MENU_CHOISE_DELETE_ALL_ROOMS = "4- Delete all data";
-    private static final String MENU_CHOISE_EXIT = "5- EXIT";
+    private static final String MENU_CHOICE_CREATE_NEW_ROOM = "Create new room";
+    private static final String MENU_CHOISE_SHOW_ROOMS = "Show all rooms";
+    private static final String MENU_CHOISE_SHOW_HOUSES = "Show all houses";
+    private static final String MENU_CHOISE_DELETE_ALL_ROOMS = "Delete all rooms";
+    private static final String MENU_CHOISE_EXIT = "EXIT";
     private static final String MENU_CHOISE_CREATE_RAPORT = "Create raport";
+
+    private static final String HOUSES_MENU_SHOW_ALL_HOUSES = "Show all houses";
+    private static final String HOUSES_MENU_DELETE_SOME_HOUSES = "Delete some houses";
+    private static final String HOUSES_MENU_DELETE_ALL_HOUSES = "Delete all houses";
+    private static final String MENU_CHOICE_CREATE_NEW_HOUSE = "Create new house";
 
     private static final String WALLA_LENGTH = "Length of wall A: ";
     private static final String WALL_LENGTH = "Length of wall B: ";
@@ -36,10 +41,11 @@ public class Navigate {
     Room newRoom = new Room();
     Driver driver = new Driver();
     Map<Integer, House> mapMain = new LinkedHashMap<>();
+    House newHouse = new House();
 
     public void Start() {
 
-        while (choise != 5) {
+        while (choise != 4) {
 
             displayMainMenu();
             choise = getNumber();
@@ -48,7 +54,23 @@ public class Navigate {
                 createNewRoom();
             } else if (choise == 2) {
                 showRoomsFromDatabase();
-            } else if (choise == 4) {
+            } else if (choise == 3) {
+                driver.deleteAllRooms();
+            }
+        }
+    }
+    public void HouseMenu() {
+
+        while (choise != 4) {
+
+            displayMainMenu();
+            choise = getNumber();
+
+            if (choise == 1) {
+                createNewRoom();
+            } else if (choise == 2) {
+                showRoomsFromDatabase();
+            } else if (choise == 3) {
                 driver.deleteAllRooms();
             }
         }
@@ -76,27 +98,30 @@ public class Navigate {
         driver.getConnectionToInsertOrUpdate(insertRoom(newRoom));
     }
 
+    private void createNewHouse() {
+        //newHouse = NewHouse();
+        PressKey();
+        driver.getConnectionToInsertOrUpdate(insertRoom(newRoom));
+    }
+
     private void displayMainMenu() {
         System.out.println(HELLO_MESSAGE);
         System.out.println(CHOICE_COMUNICAT);
-        System.out.println(MENU_CHOICE_CREATE_NEW_ROOM);
-        System.out.println(MENU_CHOISE_SHOW_ROOMS);
-        System.out.println(MENU_CHOISE_HOUSES);
-        System.out.println(MENU_CHOISE_DELETE_ALL_ROOMS);
-        System.out.println(MENU_CHOISE_EXIT);
+        System.out.println("1 - " + MENU_CHOICE_CREATE_NEW_HOUSE);
+        System.out.println("2 - " + MENU_CHOISE_SHOW_HOUSES);
+        System.out.println("3 - " + HOUSES_MENU_DELETE_SOME_HOUSES);
+        System.out.println("4 - " + MENU_CHOISE_EXIT);
+
     }
 
-    /*private void displayHousesMenu() {
-        System.out.println(HOUSES_MENU_HELLO_MESSAGE);
-        private static final String HOUSES_MENU_HELLO_MESSAGE = "Hello, What You wanna do?";
+    private void displayHouseMenu() {
         System.out.println(CHOICE_COMUNICAT);
-        System.out.println(MENU_CHOICE_CREATE_NEW_ROOM);
-        System.out.println(MENU_CHOISE_SHOW_ROOMS);
-        System.out.println(MENU_CHOISE_HOUSES);
-        System.out.println(MENU_CHOISE_DELETE_ALL_ROOMS);
-        System.out.println(MENU_CHOISE_EXIT);
+        System.out.println("1 - " + MENU_CHOICE_CREATE_NEW_ROOM);
+        System.out.println("2 - " + MENU_CHOISE_SHOW_ROOMS);
+        System.out.println("3 - " + MENU_CHOISE_DELETE_ALL_ROOMS);
+        System.out.println("4 - " + MENU_CHOISE_EXIT);
     }
-*/
+
     public void PressKey() {
 
         System.out.println("Press enter to continue...");

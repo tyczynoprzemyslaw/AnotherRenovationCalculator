@@ -1,5 +1,6 @@
 package databse;
 
+import logic.House;
 import logic.Room;
 
 public class QueryConstructor {
@@ -21,5 +22,15 @@ public class QueryConstructor {
 				  + roomDataToDatabse.circumferenceOfRoom()+"')";
 			
 		}
+	public  static String insertHouse(House HouseDataToDatabse) {
+
+		return "INSERT INTO `houses` (`house_name`, `city`, `adress`, `customer_id`)" +
+				"VALUES ('"+ HouseDataToDatabse.getHouseName() + "',"
+				+ " '"+HouseDataToDatabse.getCity()+"', '"
+				+ HouseDataToDatabse.getAdress()+"', '"
+				+ HouseDataToDatabse.getCustomer_id()+"')";
+
+
+	}
 
 }
