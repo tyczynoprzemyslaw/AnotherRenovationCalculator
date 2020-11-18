@@ -8,27 +8,27 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
+
 import static databse.QueryConstructor.GET_HAUSES_FROM_DATABASE;
 
 public class HouseMapper {
 
-    public static Map<Integer, House> loadHousesToMapFromDatabase(){
+    public static Map<Integer, House> loadHousesToMapFromDatabase() {
         Map<Integer, House> mapMain = new LinkedHashMap<>();
         try {
             Driver driver = new Driver();
             ResultSet MyRs = driver.executeSelect(GET_HAUSES_FROM_DATABASE);
             while (MyRs.next()) {
-                    House newHouse = getHouseFromDatabase(MyRs);
-                    System.out.println("Control point");
-                    mapMain.put(newHouse.getId(),newHouse);
-                }
+                House newHouse = getHouseFromDatabase(MyRs);
+                mapMain.put(newHouse.getId(), newHouse);
+            }
 
         } catch (SQLException e) {
 
             e.printStackTrace();
         }
         return mapMain;
-        }
+    }
 
     private static House getHouseFromDatabase(ResultSet result) throws SQLException {
         String name = result.getString("house_name");
@@ -36,24 +36,33 @@ public class HouseMapper {
         String city = result.getString("city");
         String adress = result.getString("adress");
         int customer_id = result.getInt("customer_id");
-        List<Room> ListOfRooms = new LinkedList<>();
-        return new House(id, name, city, adress, customer_id, ListOfRooms);
+        Map<Integer, Room> mapOfRooms = new LinkedHashMap<>();
+        return new House(id, name, city, adress, customer_id, mapOfRooms);
     }
 
-    public static void showHouse(Integer k,Map<Integer, House> mapMain) {
+    public static void showHouse(Integer k, Map<Integer, House> mapMain) {
         System.out.println();
+        System.out.println("ID: " + mapMain.get(k).getId());
         System.out.println(mapMain.get(k).getHouseName());
         System.out.println(mapMain.get(k).getCity());
         System.out.println(mapMain.get(k).getAdress());
 
     }
 
+    public static void showHouse(House house) {
+        System.out.println();
+        System.out.println(house.getHouseName());
+        System.out.println(house.getCity());
+        System.out.println(house.getAdress());
+
+    }
+
     public static void ShowAllHouses(Map<Integer, House> mapMain) {
-        System.out.println("Control - 1");
         Set<Integer> keys = mapMain.keySet();
         for (Integer k : keys) {
-            System.out.println("Control " + k);
-            showHouse(k,  mapMain);
+            showHouse(k, mapMain);
         }
     }
+
+
 }

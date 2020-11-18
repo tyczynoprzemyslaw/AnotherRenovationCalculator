@@ -1,7 +1,7 @@
 package logic;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class House {
     int id;
@@ -9,15 +9,15 @@ public class House {
     String city;
     String adress;
     int customer_id = 1;
-    List<Room> listOfRooms = new LinkedList<>();
+    Map<Integer,Room> mapOfRooms = new LinkedHashMap<>();
 
-    public House(Integer id,String name, String city, String adress, int customer_id, List<Room> listOfRooms) {
+    public House(Integer id,String name, String city, String adress, int customer_id, Map<Integer, Room> mapOfRooms) {
         this.name = name;
         this.id = id;
         this.city = city;
         this.adress = adress;
         this.customer_id = customer_id;
-        this.listOfRooms = listOfRooms;
+        this.mapOfRooms = mapOfRooms;
     }
     public House(String name, String city, String adress, int customer_id) {
         this.name = name;

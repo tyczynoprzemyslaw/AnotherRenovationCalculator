@@ -6,7 +6,9 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import static databse.QueryConstructor.insertHouse;
 import static databse.QueryConstructor.insertRoom;
+import static mappers.HouseMapper.*;
 import static mappers.RoomMapper.*;
 
 
@@ -20,7 +22,7 @@ public class Navigate {
     private static final String MENU_CHOISE_SHOW_HOUSES = "Show all houses";
     private static final String MENU_CHOISE_DELETE_ALL_ROOMS = "Delete all rooms";
     private static final String MENU_CHOISE_EXIT = "EXIT";
-    private static final String MENU_CHOISE_CREATE_RAPORT = "Create raport";
+    private final static String MENU_TO_MENAGE_HOUSES = "Menage House";
 
     private static final String HOUSES_MENU_SHOW_ALL_HOUSES = "Show all houses";
     private static final String HOUSES_MENU_DELETE_SOME_HOUSES = "Delete some houses";
@@ -37,6 +39,8 @@ public class Navigate {
 
     Scanner scan = new Scanner(System.in);
     int choice = 0;
+    int choice_1=0;
+    int choice_2=0;
     Map<Integer, Room> map = new LinkedHashMap<>();
     Room newRoom = new Room();
     Driver driver = new Driver();
@@ -45,38 +49,41 @@ public class Navigate {
 
     public void Start() {
 
-        while (choice != 4) {
+        while (choice != 5) {
 
             displayMainMenu();
             choice = getNumber();
 
             if (choice == 1) {
-                createNewRoom();
+                createNewHouse();
             } else if (choice == 2) {
-                showRoomsFromDatabase();
+                mapMain=loadHousesToMapFromDatabase();
+                ShowAllHouses(mapMain);
             } else if (choice == 3) {
+                HouseMenu();
+            } else if (choice == 4) {
                 driver.deleteAllRooms();
             }
         }
     }
     public void HouseMenu() {
 
-        while (choice != 4) {
+        while (choice_1 != 4) {
 
-            displayMainMenu();
-            choice = getNumber();
+            displayRoomsMenu();
+            choice_1 = getNumber();
 
-            if (choice == 1) {
+            if (choice_1 == 1) {
                 createNewRoom();
-            } else if (choice == 2) {
+            } else if (choice_1 == 2) {
                 showRoomsFromDatabase();
-            } else if (choice == 3) {
+            } else if (choice_1 == 3) {
                 driver.deleteAllRooms();
             }
         }
     }
 
-    private int getNumber() {
+    public int getNumber() {
         while (!scan.hasNextInt()) {
             scan.next();
             System.out.println(TYPE_NUMBER);
@@ -87,7 +94,7 @@ public class Navigate {
 
 
     private void showRoomsFromDatabase() {
-        map = loadRoomsFromDatabaseToMap();
+        map = loadARoomsFromDatabaseToMapUsingID(getNumber());
         ShowAllRooms(map);
         PressKey();
     }
@@ -99,9 +106,9 @@ public class Navigate {
     }
 
     private void createNewHouse() {
-        //newHouse = NewHouse();
+        newHouse = newHouse();
         PressKey();
-        driver.getConnectionToInsertOrUpdate(insertRoom(newRoom));
+        driver.getConnectionToInsertOrUpdate(insertHouse(newHouse));
     }
 
     private void displayMainMenu() {
@@ -109,18 +116,11 @@ public class Navigate {
         System.out.println(CHOICE_COMUNICAT);
         System.out.println("1 - " + MENU_CHOICE_CREATE_NEW_HOUSE);
         System.out.println("2 - " + MENU_CHOISE_SHOW_HOUSES);
-        System.out.println("3 - " + HOUSES_MENU_DELETE_SOME_HOUSES);
-        System.out.println("4 - " + MENU_CHOISE_EXIT);
+        System.out.println("3 - " + MENU_TO_MENAGE_HOUSES);
 
-    }
+        System.out.println("4 - " + HOUSES_MENU_DELETE_SOME_HOUSES);
+        System.out.println("5 - " + MENU_CHOISE_EXIT);
 
-    private void displayMenu() {
-
-        System.out.println(WHICH_HOUSE);
-        System.out.println("1 - " + MENU_CHOICE_CREATE_NEW_HOUSE);
-        System.out.println("2 - " + MENU_CHOISE_SHOW_HOUSES);
-        System.out.println("3 - " + HOUSES_MENU_DELETE_SOME_HOUSES);
-        System.out.println("4 - " + MENU_CHOISE_EXIT);
     }
 
     private void displayRoomsMenu() {
@@ -134,7 +134,6 @@ public class Navigate {
     public void PressKey() {
 
         System.out.println("Press enter to continue...");
-        scan.nextLine();
         scan.nextLine();
 
     }
@@ -158,6 +157,16 @@ public class Navigate {
         return exampleRoom;
     }
 
+    public House newHouse() {
+
+        House exampleHouse = createHouseFromInputNumbers();
+        mapMain.put(exampleHouse.getId(), exampleHouse);
+
+        System.out.println(MESSAGE_CREATED_ROOM);
+        showHouse(exampleHouse);
+        return exampleHouse;
+    }
+
     public Room createRoomFromInputNumbers() {
         System.out.println("Put name: ");
         String name = scan.nextLine();
@@ -174,6 +183,21 @@ public class Navigate {
         return new Room(name, wallA, wallB, heigh);
     }
 
+    public House createHouseFromInputNumbers() {
+        System.out.println("Put name: ");
+        String name = scan.nextLine();
+
+        System.out.println("Put city: ");
+        String city = scan.nextLine();
+
+        System.out.println("Put adress: ");
+        String adress = scan.nextLine();
+
+        System.out.println("Put customer ID ");
+        int customer_id = scan.nextInt();
+
+        return new House(name, city, adress, customer_id);
+    }
 
 
 

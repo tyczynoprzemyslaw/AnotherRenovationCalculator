@@ -9,17 +9,35 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
+import static databse.QueryConstructor.selectRoomsUsingHouseId;
 import static logic.Navigate.*;
 
 
 public class RoomMapper {
 
-    public static Map<Integer, Room> loadRoomsFromDatabaseToMap() {
+
+
+    public static Map<Integer, Room> loadAllRoomsFromDatabaseToMap() {
         Map<Integer, Room> map = new LinkedHashMap<>();
 
         try {
             Driver driver = new Driver();
             ResultSet result = driver.executeSelect("SELECT id, room_name,wallA,wallB,high,house_id FROM rooms");
+            GetRoomsFromDatabaseToMap(map, result);
+
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    public static Map<Integer, Room> loadARoomsFromDatabaseToMapUsingID(int idOfHouse) {
+        Map<Integer, Room> map = new LinkedHashMap<>();
+
+        try {
+            Driver driver = new Driver();
+            ResultSet result = driver.executeSelect(selectRoomsUsingHouseId(idOfHouse));
             GetRoomsFromDatabaseToMap(map, result);
 
         } catch (SQLException e) {
