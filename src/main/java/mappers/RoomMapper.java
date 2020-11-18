@@ -1,14 +1,18 @@
-package databse;
+package mappers;
 
+import databse.Driver;
 import logic.Room;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
+
+import static logic.Navigate.*;
 
 
-public class Mapper {
+public class RoomMapper {
 
     public static Map<Integer, Room> loadRoomsFromDatabaseToMap() {
         Map<Integer, Room> map = new LinkedHashMap<>();
@@ -42,7 +46,34 @@ public class Mapper {
             Integer houseId = result.getInt("house_id");
         return new Room(name, wallA, wallB, high, id, houseId);
     }
+    public static void ShowAllRooms(Map<Integer, Room> map) {
 
+        //keys = null;
+        Set<Integer> keys = map.keySet();
+        for (Integer k : keys) {
+            System.out.println("Control" + k);
+            showRoom(k,map);
+
+        }
+    }
+
+    public static void showRoom(Integer k,Map<Integer, Room> map) {
+
+        System.out.println();
+        System.out.println(map.get(k).getName());
+        System.out.println(WALLA_LENGTH + map.get(k).getWallA());
+        System.out.println(WALL_LENGTH + map.get(k).getWallB());
+        System.out.println(HIGH + map.get(k).getHigh());
+    }
+
+    public static void showRoom(Room room) {
+
+        System.out.println();
+        System.out.println(room.getName());
+        System.out.println(WALLA_LENGTH + room.getWallA());
+        System.out.println(WALL_LENGTH + room.getWallB());
+        System.out.println(HIGH + room.getHigh());
+    }
 
 
 

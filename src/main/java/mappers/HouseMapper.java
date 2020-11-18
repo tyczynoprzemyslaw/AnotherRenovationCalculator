@@ -40,7 +40,7 @@ public class HouseMapper {
         return new House(id, name, city, adress, customer_id, ListOfRooms);
     }
 
-    public void showHouse(Integer k,Map<Integer, House> mapMain) {
+    public static void showHouse(Integer k,Map<Integer, House> mapMain) {
         System.out.println();
         System.out.println(mapMain.get(k).getHouseName());
         System.out.println(mapMain.get(k).getCity());
@@ -48,7 +48,7 @@ public class HouseMapper {
 
     }
 
-    public  void ShowAllHouses(Map<Integer, House> mapMain) {
+    public static void ShowAllHouses(Map<Integer, House> mapMain) {
         System.out.println("Control - 1");
         Set<Integer> keys = mapMain.keySet();
         for (Integer k : keys) {
