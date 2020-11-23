@@ -6,8 +6,9 @@ import logic.Room;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
-
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
 
 import static databse.QueryConstructor.GET_HAUSES_FROM_DATABASE;
 
@@ -46,7 +47,6 @@ public class HouseMapper {
         System.out.println(mapMain.get(k).getHouseName());
         System.out.println(mapMain.get(k).getCity());
         System.out.println(mapMain.get(k).getAdress());
-
     }
 
     public static void showHouse(House house) {

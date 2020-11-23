@@ -8,12 +8,16 @@ import java.util.Scanner;
 
 import static databse.QueryConstructor.insertHouse;
 import static databse.QueryConstructor.insertRoom;
+import static logic.Utils.*;
 import static mappers.HouseMapper.*;
 import static mappers.RoomMapper.*;
 
 
 public class Navigate {
 
+    public static final String WALLA_LENGTH = "Length of wall A: ";
+    public static final String WALL_LENGTH = "Length of wall B: ";
+    public static final String HIGH = "High of Room: ";
     private static final String CHOICE_COMUNICAT = "What You want to do? ";
     private static final String WHICH_HOUSE = "Which house you want choice ";
     private static final String HELLO_MESSAGE = "HELLO :) It's simply renovation calculator. All data are saved in database";
@@ -22,25 +26,19 @@ public class Navigate {
     private static final String MENU_CHOISE_SHOW_HOUSES = "Show all houses";
     private static final String MENU_CHOISE_DELETE_ALL_ROOMS = "Delete all rooms";
     private static final String MENU_CHOISE_EXIT = "EXIT";
-    private final static String MENU_TO_MENAGE_HOUSES = "Menage House";
-
+    private static final String MENU_TO_MENAGE_HOUSES = "Menage House";
     private static final String HOUSES_MENU_SHOW_ALL_HOUSES = "Show all houses";
     private static final String HOUSES_MENU_DELETE_SOME_HOUSES = "Delete some houses";
     private static final String HOUSES_MENU_DELETE_ALL_HOUSES = "Delete all houses";
     private static final String MENU_CHOICE_CREATE_NEW_HOUSE = "Create new house";
 
-    public static final String WALLA_LENGTH = "Length of wall A: ";
-    public static final String WALL_LENGTH = "Length of wall B: ";
-    public static final String HIGH = "High of Room: ";
-
-    private static final String TYPE_NUMBER = "Type number!: ";
-    private final static String MESSAGE_CREATED_ROOM = "Correctly create new Room";
+    private static final String MESSAGE_CREATED_ROOM = "Correctly create new Room";
 
 
     Scanner scan = new Scanner(System.in);
     int choice = 0;
-    int choice_1=0;
-    int choice_2=0;
+    int choice_1 = 0;
+    int choice_2 = 0;
     Map<Integer, Room> map = new LinkedHashMap<>();
     Room newRoom = new Room();
     Driver driver = new Driver();
@@ -57,7 +55,7 @@ public class Navigate {
             if (choice == 1) {
                 createNewHouse();
             } else if (choice == 2) {
-                mapMain=loadHousesToMapFromDatabase();
+                mapMain = loadHousesToMapFromDatabase();
                 ShowAllHouses(mapMain);
             } else if (choice == 3) {
                 HouseMenu();
@@ -66,6 +64,7 @@ public class Navigate {
             }
         }
     }
+
     public void HouseMenu() {
 
         while (choice_1 != 4) {
@@ -82,15 +81,6 @@ public class Navigate {
             }
         }
     }
-
-    public int getNumber() {
-        while (!scan.hasNextInt()) {
-            scan.next();
-            System.out.println(TYPE_NUMBER);
-        }
-        return scan.nextInt();
-    }
-
 
 
     private void showRoomsFromDatabase() {
@@ -131,21 +121,6 @@ public class Navigate {
         System.out.println("4 - " + MENU_CHOISE_EXIT);
     }
 
-    public void PressKey() {
-
-        System.out.println("Press enter to continue...");
-        scan.nextLine();
-
-    }
-
-    public double getDouble() {
-        while (!scan.hasNextDouble()) {
-            scan.next();
-            System.out.println(TYPE_NUMBER);
-        }
-        return scan.nextDouble();
-
-    }
 
     public Room NewRoom() {
 
@@ -198,8 +173,6 @@ public class Navigate {
 
         return new House(name, city, adress, customer_id);
     }
-
-
 
 
 }

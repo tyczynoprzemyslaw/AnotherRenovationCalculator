@@ -9,9 +9,9 @@ public class House {
     String city;
     String adress;
     int customer_id = 1;
-    Map<Integer,Room> mapOfRooms = new LinkedHashMap<>();
+    Map<Integer, Room> mapOfRooms = new LinkedHashMap<>();
 
-    public House(Integer id,String name, String city, String adress, int customer_id, Map<Integer, Room> mapOfRooms) {
+    public House(Integer id, String name, String city, String adress, int customer_id, Map<Integer, Room> mapOfRooms) {
         this.name = name;
         this.id = id;
         this.city = city;
@@ -19,6 +19,7 @@ public class House {
         this.customer_id = customer_id;
         this.mapOfRooms = mapOfRooms;
     }
+
     public House(String name, String city, String adress, int customer_id) {
         this.name = name;
         this.city = city;
@@ -28,11 +29,9 @@ public class House {
     }
 
 
-
     public House() {
 
     }
-
 
 
     public int getId() {
@@ -56,5 +55,4 @@ public class House {
     }
 
 
-
-    }
+}
